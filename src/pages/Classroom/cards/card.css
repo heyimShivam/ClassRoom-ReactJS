@@ -2,8 +2,13 @@
     margin-bottom: 55px;
 }
 .list{
-    border-bottom: 1px solid #333;
+    border-bottom: 1px dashed #333;
+    text-transform: capitalize;
     margin-top: 9px;
+}
+.card:hover{
+    box-shadow: #333 0px 0px 6px 2px;
+    transition: 0.2s;
 }
 ol{
     list-style: none;

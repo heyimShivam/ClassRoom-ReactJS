@@ -15,6 +15,7 @@ import Discussion from './pages/Discussion/Discussion';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/footer/footer';
 import FingerBtn from './Components/fingerBtn/fingerBtn';
+import ClassInIt from './pages/Classroom/cards/ClassInIT/ClassInIt'
 
 const App = () => {
   return (
@@ -36,6 +37,9 @@ const App = () => {
         </Route>
         <Route path="/manage" exact>
           <Manage/>
+          </Route>
+        <Route path="/Class" exact>
+          <ClassInIt/>
         </Route>
         <Redirect to="/" />
       </Switch>

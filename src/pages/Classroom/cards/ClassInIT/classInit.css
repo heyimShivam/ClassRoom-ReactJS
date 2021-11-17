@@ -1,0 +1,20 @@
+.mainClassWork{
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    background-color: #333;
+    color: white;
+    border-radius: 25px;
+    background-repeat: no-repeat;
+    background-image: url('https://wallpapercave.com/wp/wp3332365.jpg');
+    background-size: cover;
+    background-position: center; 
+}
+.classText{
+    position: absolute;
+    bottom: 0;
+    right: 30;
+    color: white;
+    font-weight: 900;
+    z-index: 5;
+}
