@@ -20,7 +20,7 @@ const App = () => {
   return (
    <Router>
     <Navbar/>
-    <main>
+    <main className="paddingMainTop">
       <Switch>
         <Route path="/" exact>
           <Home/>

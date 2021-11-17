@@ -1,0 +1,9 @@
+.classUl{
+    list-style: none;
+    
+}
+.classUl li {
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+}

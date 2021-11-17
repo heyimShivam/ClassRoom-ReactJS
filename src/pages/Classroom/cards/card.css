@@ -1,0 +1,13 @@
+.cardClass{
+    margin-bottom: 55px;
+}
+.list{
+    border-bottom: 1px solid #333;
+    margin-top: 9px;
+}
+ol{
+    list-style: none;
+}
+.bell_ico{
+ padding-top: 5px;
+}
