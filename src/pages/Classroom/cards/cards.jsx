@@ -19,11 +19,10 @@ const Card = (props) => {
           </div>
 
           <NavLink className="nav-link btn btn-primary" to={{
-                                           pathname: "/class",
-                                           search: "?id=1234",
-                                           hash: `#${props.className}`,
-                                            }}
-          exact>
+            pathname: "/class",
+            search: "?id=1234",
+            hash: `#${props.className}`,
+          }} exact style={{ color: 'white' }}>
           Open Class
           </NavLink>
 

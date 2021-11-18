@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,7 +7,6 @@ import {
   Switch
 } from 'react-router-dom';
 import "./App.css"
-
 import About from './pages/About/About';
 import Manage from './pages/Manage/Manage';
 import Home from './pages/Home/Home';
@@ -15,39 +15,32 @@ import Discussion from './pages/Discussion/Discussion';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/footer/footer';
 import FingerBtn from './Components/fingerBtn/fingerBtn';
-import ClassInIt from './pages/Classroom/cards/ClassInIT/ClassInIt'
-
+import ClassInIt from './pages/Classroom/ClassInIT/ClassInIt'
+import PrivateRoute from './Protected.routes'
+import Login from './Components/login/login';
+import Register from './Components/register/register'
 const App = () => {
   return (
-   <Router>
-    <Navbar/>
-    <main className="paddingMainTop">
-      <Switch>
-        <Route path="/" exact>
-          <Home/>
-        </Route>
-        <Route path="/about" exact>
-          <About/>
-        </Route>
-        <Route path="/Classroom" exact>
-          <Classroom />
-        </Route>
-        <Route path="/discussion" exact>
-          <Discussion/>
-        </Route>
-        <Route path="/manage" exact>
-          <Manage/>
-          </Route>
-        <Route path="/Class" exact>
-          <ClassInIt/>
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+    <Router>
+      <Navbar />
+      <main className="paddingMainTop">
+        <Switch>
+
+          <Route path="/" exact component={Home} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <PrivateRoute path="/about" exact component={About} />
+          <PrivateRoute path="/Classroom" exact component={Classroom} />
+          <PrivateRoute path="/discussion" exact component={Discussion} />
+          <PrivateRoute path="/manage" exact component={Manage} />
+          <PrivateRoute path="/Class" exact component={ClassInIt} />
+  
+          <Redirect to="/" />
+        </Switch>
       </main>
       <Footer />
-      <FingerBtn/>
-      </Router>
+      <FingerBtn />
+    </Router>
   );
-}
-
+};
 export default App;

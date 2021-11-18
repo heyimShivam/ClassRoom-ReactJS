@@ -18,3 +18,15 @@
     font-weight: 900;
     z-index: 5;
 }
+.meetLinkPaste{
+    border:0px;
+    border-bottom: 1px solid green;
+    margin-bottom: 20px;
+    padding-top: 15px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.meetLinkPaste:focus, textarea:focus, select:focus{
+    outline: none;
+}
