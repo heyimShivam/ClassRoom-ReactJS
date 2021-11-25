@@ -2,14 +2,34 @@
 import "./login.css";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import React from "react";
 import { NavLink } from 'react-router-dom';
+import  Auth  from '../../auth'
 
 function Login() {
-    const [loginModal, setloginModal] = useState(true);
-       const loginModalClose = () => setloginModal(false);
+  const [loginModal, setloginModal] = useState(true);
+  const loginModalClose = () => setloginModal(false);
+
+  // variable for user input
+  const [email, setEmail] = useState('');
+  const emailUpdate = (event) => {
+    setEmail(event.target.value);
+  }
+  const [password, setPassword] = useState('');
+  const passwordUpdate = (event) => {
+    setPassword(event.target.value);
+  }
+
+  // when user click Login
+  const loginModalCloseSet = () => {
+      setloginModal(false);
+      if (true){
+        Auth.authenticate();
+      }
+    console.log('email: '+email+ ' password : ' + password)
+  };
+
         return (
             <Modal show={loginModal} onHide={loginModalClose} backdrop="static" keyboard={false}
             size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -20,7 +40,7 @@ function Login() {
                     <div className="container">
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Control type="email" placeholder="Enter email" onChange={emailUpdate} value={email}/>
                         <Form.Text className="text-muted">
                           We'll never share your email with anyone else.
                         </Form.Text>
@@ -28,7 +48,7 @@ function Login() {
                     
                       <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                  <Form.Control type="password" placeholder="Password" onChange={passwordUpdate} value={password}/>
                       </Form.Group>
                       </div>
               </Modal.Body>
@@ -38,7 +58,7 @@ function Login() {
                 Register
               </NavLink>
                 
-              <NavLink className="nav-link btn btn-success" onClick={loginModalClose} to="/" exact style={{color:'white'}}>
+              <NavLink className="nav-link btn btn-success" onClick={loginModalCloseSet} to="/" exact style={{color:'white'}}>
                 Login
               </NavLink>
               </Modal.Footer>

@@ -12,7 +12,7 @@ const Card = (props) => {
             <ol>
               {
                 props.notification.map((notification) => {
-                  return <li className='list'>{notification}<span style={{ float: 'right' }}><i class="fas fa-bell bell_ico"></i></span></li>
+                  return <li className='list' key={notification.toString()}>{notification}<span style={{ float: 'right' }}><i className="fas fa-bell bell_ico"></i></span></li>
                 })
               }
             </ol>

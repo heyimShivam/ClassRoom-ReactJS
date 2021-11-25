@@ -38,8 +38,9 @@ const App = () => {
           <Redirect to="/" />
         </Switch>
       </main>
-      <Footer />
+      
       <FingerBtn />
+      <Footer />
     </Router>
   );
 };

@@ -8,7 +8,10 @@ import { NavLink } from 'react-router-dom';
 
 function Register() {
     const [registerModal, setregisterModal] = useState(true);
-       const registerModalClose = () => setregisterModal(false);
+  const registerModalClose = () => setregisterModal(false);
+  const registerModalCloseUpdate = () => {
+    setregisterModal(false);
+  }
     return (
         <div>
            <Modal show={registerModal} onHide={registerModalClose} backdrop="static" keyboard={false}
@@ -49,7 +52,7 @@ function Register() {
                 Login
               </NavLink>
                 
-              <NavLink className="nav-link btn btn-success" onClick={registerModalClose} to="/" exact style={{color:'white'}}>
+              <NavLink className="nav-link btn btn-success" onClick={registerModalCloseUpdate} to="/login" exact style={{color:'white'}}>
                 Register
               </NavLink>
               </Modal.Footer>

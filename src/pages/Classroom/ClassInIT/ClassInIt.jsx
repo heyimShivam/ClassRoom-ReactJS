@@ -46,10 +46,10 @@ const ClassInIt = () => {
       handleShow();
     }
   }
-    return (
+  return (
+    // This is Class {id}
       <div className="container-fluid" style={{marginTop:`-30px`}}>
         <div className="mainClassWork">
-          This is Class {id}
           <div className="classText">
           <h1><strong>{classDetails.className}</strong></h1>
           </div>
@@ -58,7 +58,7 @@ const ClassInIt = () => {
 
         <div className="container-fluid">
         <div className="row">
-            <div className="col-sm-3 d-flex justify-content-center" style={{ borderRight: '1px solid #3336' }}>
+            <div className="col-sm-3 d-flex justify-content-center">
               <div className="row m-1">
               <a href={classDetails.meetLinkAvailable ? classDetails.meetLink : "#"} onClick={checkLinkStatus}
                  className="btn btn-success" style={{ width: '100%' }}>{meetButton}</a>
@@ -71,7 +71,7 @@ const ClassInIt = () => {
              <Modal.Title>Add Meet</Modal.Title>
            </Modal.Header>
            <Modal.Body>
-                  <input type="text" value={addLink} onChange={inputKeyPress} placeholder="Paste Meet Link Here" class="meetLinkPaste"></input>
+                  <input type="text" value={addLink} onChange={inputKeyPress} placeholder="Paste Meet Link Here" className="meetLinkPaste"></input>
            </Modal.Body>
            <Modal.Footer>
              <Button variant="secondary" onClick={handleClose}>
@@ -90,8 +90,19 @@ const ClassInIt = () => {
                 </ul>
             </div>
               </div>
-          </div>
-          <div className="col-sm-9 d-flex justify-content-center" >Shivam</div>
+            </div>
+            {/* messaging part goes here */}
+            <div className="col-sm-9" >
+              <div className="messageAreaAll">
+                <textarea type='text' placeholder='Messages Goes Here' rows='5' className='classMessageArea'></textarea>
+                <ul className='meassageAreaBtn'>
+                  <li><i className="imgIcon far fa-file-pdf" aria-hidden="true"></i></li>
+                  <li><i className="imgIcon far fa-file-image"></i></li>
+                  <li><i className="imgIcon far fa-file-video"></i></li>
+                  <li style={{float:'right',color:'green'}}><i className="imgIcon fa fa-paper-plane"></i></li>
+                </ul>
+              </div>
+            </div>
         </div>
         </div>
 

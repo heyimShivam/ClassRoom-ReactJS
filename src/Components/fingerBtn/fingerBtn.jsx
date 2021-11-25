@@ -13,6 +13,9 @@ function FingerBtn() {
     
       useEffect(() => {
         window.addEventListener("scroll", checkWinPOsition);
+        return function cleanup() {
+          window.removeEventListener();
+      }
       }, []);
     
       function checkWinPOsition(){
