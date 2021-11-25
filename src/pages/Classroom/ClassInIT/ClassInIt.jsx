@@ -1,12 +1,22 @@
+import React, {useCallback} from 'react'
 import { useState } from "react";
 import "./classInit.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Dropzone from 'react-dropzone'
+
 const ClassInIt = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const id = queryParams.get('id');
   const type = queryParams.get('type');
-  
+  const [attachFileModal, setAttachFileModal] = useState(false);
+  const attachFileModalOpen = () => setAttachFileModal(true);
+  const attachFileModalClose = () => setAttachFileModal(false);
+  const acceptedFiles = (acceptedFiles) => {
+    console.log(acceptedFiles);
+  };
+
   //backEnd
   const classDetails = {
     image: 'https://s35691.pcdn.co/wp-content/uploads/2016/09/iStock_87294393_LARGE.160928.jpg',
@@ -15,6 +25,10 @@ const ClassInIt = () => {
     meetLinkAvailable: true
   }
   const [addLink, setAddLink] = useState(null);
+ 
+  const onFileChange = () => {
+
+  }
   function changeUpdateCall() {
     //backend update
     console.log(classDetails);
@@ -45,6 +59,9 @@ const ClassInIt = () => {
     else {
       handleShow();
     }
+  }
+  const handleOnDrop = (files, rejectedFiles) => {
+    console.log(files);
   }
   return (
     // This is Class {id}
@@ -95,18 +112,55 @@ const ClassInIt = () => {
             <div className="col-sm-9" >
               <div className="messageAreaAll">
                 <textarea type='text' placeholder='Messages Goes Here' rows='5' className='classMessageArea'></textarea>
-                <ul className='meassageAreaBtn'>
-                  <li><i className="imgIcon far fa-file-pdf" aria-hidden="true"></i></li>
-                  <li><i className="imgIcon far fa-file-image"></i></li>
-                  <li><i className="imgIcon far fa-file-video"></i></li>
-                  <li style={{float:'right',color:'green'}}><i className="imgIcon fa fa-paper-plane"></i></li>
-                </ul>
+              <ul className='meassageAreaBtn'>
+                <li style={{ float: 'right' }}>
+                  <Button style={{ borderRadius: "20%", width: '25px', padding: '6px', paddingRight: '28px' }} variant="outline-dark">
+                    <i className="imgIcon fa fa-paper-plane"></i>
+                  </Button></li>
+                <li style={{ float: 'right' }}>
+                  <Button onClick={attachFileModalOpen} variant="outline-dark" style={{ borderRadius: "20%", width: '25px', padding: '6px', paddingRight: '28px' }}>
+                    <i className="imgIcon fa fa-paperclip "></i>
+                  </Button>
+                </li>
+              </ul>
               </div>
             </div>
         </div>
         </div>
 
-        <br></br>
+      <br></br>
+
+{/* modal for uploading file open here*/}
+      <Modal show={attachFileModal} onHide={attachFileModalClose} backdrop="static" keyboard={false}
+              size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                  <Modal.Title>Upload File</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+
+            <div className="row d-flex justify-content-center" style={{border:'3px dotted black',borderRadius:'10px',margin:'0', height:'20vh', width:'100%'}}>
+              <div className="col d-flex justify-content-center"  >
+            <Dropzone style={{width:'100%'}} onDrop={acceptedFiles}>
+                  {({getRootProps, getInputProps}) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p style={{marginTop:'45px', color:'#333'}}>Drag 'n' drop some files here, or click to select files</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+          </div>
+            </div>
+
+                </Modal.Body>
+                  <Modal.Footer>
+                      
+                 <Button onClick={attachFileModalClose}>Close</Button>
+                 <Button onClick={attachFileModalClose} variant="primary">Upload</Button>
+                </Modal.Footer>
+      </Modal>
+{/* modal for uploading  file over*/}
       </div>
     )
   }
