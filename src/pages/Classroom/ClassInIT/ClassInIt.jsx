@@ -12,9 +12,15 @@ const ClassInIt = () => {
   const type = queryParams.get('type');
   const [attachFileModal, setAttachFileModal] = useState(false);
   const attachFileModalOpen = () => setAttachFileModal(true);
-  const attachFileModalClose = () => setAttachFileModal(false);
+  const attachFileModalClose = () => {
+    setAttachFileModal(false);
+    setTimeout(
+      setFileUploadText('Drag and drop your files, or click to select files'), 1000);
+  };
+  const [fileUploadText, setFileUploadText] = useState('Drag and drop your files, or click to select files');
   const acceptedFiles = (acceptedFiles) => {
     console.log(acceptedFiles);
+    setFileUploadText("Uploaded no of files : " + acceptedFiles.length);
   };
 
   //backEnd
@@ -138,14 +144,14 @@ const ClassInIt = () => {
                 </Modal.Header>
                 <Modal.Body>
 
-            <div className="row d-flex justify-content-center" style={{border:'3px dotted black',borderRadius:'10px',margin:'0', height:'20vh', width:'100%'}}>
+            <div className="row d-flex justify-content-center" style={{border:'2px dotted orange', borderRadius:'10px',margin:'0', height:'20vh', width:'100%'}}>
               <div className="col d-flex justify-content-center"  >
             <Dropzone style={{width:'100%'}} onDrop={acceptedFiles}>
                   {({getRootProps, getInputProps}) => (
                     <section>
                       <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <p style={{marginTop:'45px', color:'#333'}}>Drag 'n' drop some files here, or click to select files</p>
+                      <p style={{ marginTop: '45px', color: '#333' }}>{fileUploadText}</p>
                       </div>
                     </section>
                   )}
