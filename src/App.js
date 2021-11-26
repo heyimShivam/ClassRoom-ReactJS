@@ -9,7 +9,6 @@ import {
 import "./App.css"
 import About from './pages/About/About';
 import Manage from './pages/Manage/Manage';
-import Home from './pages/Home/Home';
 import Classroom from './pages/Classroom/Classroom';
 import Discussion from './pages/Discussion/Discussion';
 import Navbar from './Components/Navbar/Navbar';
@@ -25,12 +24,10 @@ const App = () => {
       <Navbar />
       <main className="paddingMainTop">
         <Switch>
-
-          <Route path="/" exact component={Home} />
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <PrivateRoute path="/about" exact component={About} />
-          <PrivateRoute path="/Classroom" exact component={Classroom} />
+          <PrivateRoute path="/" exact component={Classroom} />
           <PrivateRoute path="/discussion" exact component={Discussion} />
           <PrivateRoute path="/manage" exact component={Manage} />
           <PrivateRoute path="/Class" exact component={ClassInIt} />

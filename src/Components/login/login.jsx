@@ -2,10 +2,11 @@
 import "./login.css";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { NavLink } from 'react-router-dom';
 import  Auth  from '../../auth'
+import axios from 'axios';
 
 function Login() {
   const [loginModal, setloginModal] = useState(true);
@@ -20,14 +21,24 @@ function Login() {
   const passwordUpdate = (event) => {
     setPassword(event.target.value);
   }
+  const userDetails ={
+    email: email,
+    password: password
+  }
 
   // when user click Login
   const loginModalCloseSet = () => {
-      setloginModal(false);
-      if (true){
-        Auth.authenticate();
+    loginModalClose();
+      axios.post('http://localhost:5000/api/users/login', userDetails).then(
+      (res) => {
+        console.log('login details: ' + JSON.stringify(res));
+          Auth.authenticate();
       }
-    console.log('email: '+email+ ' password : ' + password)
+    ).catch(
+      error => {
+        console.error('There was an error!', error);
+      }
+    )
   };
 
         return (
@@ -58,7 +69,7 @@ function Login() {
                 Register
               </NavLink>
                 
-              <NavLink className="nav-link btn btn-success" onClick={loginModalCloseSet} to="/" exact style={{color:'white'}}>
+              <NavLink className="nav-link btn btn-success" onClick={() => { loginModalCloseSet();loginModalClose(); }} to="/classroom" exact style={{color:'white'}}>
                 Login
               </NavLink>
               </Modal.Footer>
