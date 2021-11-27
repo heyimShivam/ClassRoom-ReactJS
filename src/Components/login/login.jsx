@@ -2,12 +2,12 @@
 import "./login.css";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import React from "react";
 import { NavLink } from 'react-router-dom';
 import  Auth  from '../../auth'
 import axios from 'axios';
-
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 function Login() {
   const [loginModal, setloginModal] = useState(true);
   const loginModalClose = () => setloginModal(false);
@@ -21,27 +21,41 @@ function Login() {
   const passwordUpdate = (event) => {
     setPassword(event.target.value);
   }
-  const userDetails ={
-    email: email,
-    password: password
-  }
 
   // when user click Login
-  const loginModalCloseSet = () => {
-    loginModalClose();
+  const logininto = () => {
+    const userDetails ={
+      email: email,
+      password: password
+    }
+    if (email !== "" && password !== "") {
       axios.post('http://localhost:5000/api/users/login', userDetails).then(
-      (res) => {
-        console.log('login details: ' + JSON.stringify(res));
+        (res) => {
           Auth.authenticate();
+          Auth.userToken = res.data.token;
+          console.log('calles');
+          setEmail("");
+          setPassword("");
+          document.querySelector('.clickthis').click();
+        }
+      ).catch(
+        error => {
+          console.error('There was an error!', error);
+        }
+      )
       }
-    ).catch(
-      error => {
-        console.error('There was an error!', error);
-      }
-    )
+    setloginModal(false);
   };
 
         return (
+          <div>
+            <div className="row">
+              <div className="col d-flex justify-content-center">
+              <NavLink className="clickthis btn btn-primary btnTOClass" style={{display:'none'}}  to="/" exact>
+              Refresh
+            </NavLink>
+              </div>
+            </div>
             <Modal show={loginModal} onHide={loginModalClose} backdrop="static" keyboard={false}
             size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
               <Modal.Header closeButton>
@@ -49,18 +63,19 @@ function Login() {
               </Modal.Header>
               <Modal.Body>
                     <div className="container">
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" onChange={emailUpdate} value={email}/>
-                        <Form.Text className="text-muted">
-                          We'll never share your email with anyone else.
-                        </Form.Text>
-                      </Form.Group>
-                    
-                      <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" onChange={passwordUpdate} value={password}/>
-                      </Form.Group>
+
+              
+                      
+           <FloatingLabel controlId="floatingInput" label="Email" className="mb-3" >
+              <Form.Control type="text" placeholder="Enter email" autoComplete="off" onChange={emailUpdate} value={email} />
+                <Form.Text className="text-muted">
+                      We'll never share your email with anyone else.
+                </Form.Text>
+           </FloatingLabel>
+           <FloatingLabel controlId="floatingPassword" label="Password">
+             <Form.Control type="text" placeholder="Password" autoComplete="off" onChange={passwordUpdate} value={password}/>
+           </FloatingLabel>
+
                       </div>
               </Modal.Body>
                 <Modal.Footer>
@@ -69,11 +84,12 @@ function Login() {
                 Register
               </NavLink>
                 
-              <NavLink className="nav-link btn btn-success" onClick={() => { loginModalCloseSet();loginModalClose(); }} to="/classroom" exact style={{color:'white'}}>
+              <button className="nav-link btn btn-success" onClick={logininto}  style={{color:'white'}}>
                 Login
-              </NavLink>
+              </button>
               </Modal.Footer>
       </Modal>
+          </div>
     )
 }
 export default Login;

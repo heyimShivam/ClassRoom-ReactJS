@@ -81,13 +81,12 @@ const Navbar = () => {
               <div className="right"></div>
             </div>
             
-            <li className="nav-item">
+            <li className="nav-item active">
               <NavLink className="nav-link" to="/" exact>
-                <i 
-                className="far fa-clone">
-                </i>Classroom
+              <i className="fas fa-home">
+                </i>ClassRoom
               </NavLink>
-          </li>
+            </li>
         
           <li className="nav-item">
               <NavLink className="nav-link" to="/discussion" exact>
@@ -111,8 +110,7 @@ const Navbar = () => {
                 className="far fa-copy">
                 </i>Manage
               </NavLink>
-          </li>
-          
+            </li>
         </ul>
       </div>
   </nav>

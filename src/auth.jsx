@@ -1,5 +1,6 @@
 const Auth = {
     isAuthenticated: false,
+    userDataTempStorage: null,
     authenticate() {
     this.isAuthenticated = true;
     },
@@ -7,7 +8,7 @@ const Auth = {
     this.isAuthenticated = false;
     },
     getAuth() {
-    return this.isAuthenticated;
+        return this.isAuthenticated;
     }
     };
 
