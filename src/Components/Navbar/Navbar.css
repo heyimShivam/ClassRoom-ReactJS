@@ -37,6 +37,7 @@ i {
 #navbarSupportedContent ul li a i {
   margin-right: 10px;
 }
+
 #navbarSupportedContent li {
   list-style-type: none;
   float: left;
@@ -147,4 +148,15 @@ i {
     bottom: -25px;
     left: -25px;
   }
+}
+
+.logoutBtn{
+  z-index: 1000;
+  margin-left: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  margin-left: 15;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width:max-content;
 }

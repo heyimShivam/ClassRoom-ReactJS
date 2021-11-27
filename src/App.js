@@ -18,7 +18,9 @@ import ClassInIt from './pages/Classroom/ClassInIT/ClassInIt'
 import PrivateRoute from './Protected.routes'
 import Login from './Components/login/login';
 import Register from './Components/register/register'
+import Auth from './auth';
 const App = () => {
+  
   return (
     <Router>
       <Navbar />
@@ -27,7 +29,7 @@ const App = () => {
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <PrivateRoute path="/about" exact component={About} />
-          <PrivateRoute path="/" exact component={Classroom} />
+          <PrivateRoute path="/" exact component={Classroom}/>
           <PrivateRoute path="/discussion" exact component={Discussion} />
           <PrivateRoute path="/manage" exact component={Manage} />
           <PrivateRoute path="/Class" exact component={ClassInIt} />

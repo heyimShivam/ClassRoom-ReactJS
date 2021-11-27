@@ -36,6 +36,7 @@ function Login() {
           console.log('calles');
           setEmail("");
           setPassword("");
+          localStorage.setItem('usertoken', res.data.token);
           document.querySelector('.clickthis').click();
         }
       ).catch(
@@ -44,7 +45,6 @@ function Login() {
         }
       )
       }
-    setloginModal(false);
   };
 
         return (
@@ -67,13 +67,13 @@ function Login() {
               
                       
            <FloatingLabel controlId="floatingInput" label="Email" className="mb-3" >
-              <Form.Control type="text" placeholder="Enter email" autoComplete="off" onChange={emailUpdate} value={email} />
+              <Form.Control type="text" placeholder="Enter email"  onChange={emailUpdate} value={email} />
                 <Form.Text className="text-muted">
                       We'll never share your email with anyone else.
                 </Form.Text>
            </FloatingLabel>
            <FloatingLabel controlId="floatingPassword" label="Password">
-             <Form.Control type="text" placeholder="Password" autoComplete="off" onChange={passwordUpdate} value={password}/>
+             <Form.Control type="text" placeholder="Password"  onChange={passwordUpdate} value={password}/>
            </FloatingLabel>
 
                       </div>

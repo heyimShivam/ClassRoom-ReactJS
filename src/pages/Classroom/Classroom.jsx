@@ -12,9 +12,8 @@ const Classroom = () => {
   const notification = ['data', 'shivam', 'rajesh'];
   const url = 'http://localhost:5000/';
   const [userClassesData,setuserClassesData] = useState(null);
-  axios.defaults.headers.common['Authorization'] = Auth.userToken;
   let [one,setone] = useState(1);
-
+  axios.defaults.headers.common['Authorization'] = Auth.haveToken() ? localStorage.getItem('usertoken') : Auth.userToken;
   useEffect(() => {
     if (one === 1) {
       axios.get(url + 'api/classroom/').then(
