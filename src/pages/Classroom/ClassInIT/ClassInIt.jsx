@@ -8,6 +8,7 @@ import Dropzone from 'react-dropzone'
 import axios from 'axios';
 import Auth from '../../../auth';
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { data } from 'jquery';
 
 const ClassInIt = () => {
   const url = 'http://localhost:5000/';
@@ -24,6 +25,7 @@ const ClassInIt = () => {
     inviteCode: classData.inviteCode,
     courseCode: classData.courseCode,
     meetLink: classData.meetingLink,
+    classID: classData._id
   }
 
 // File Uploading Logic Start
@@ -35,10 +37,7 @@ const ClassInIt = () => {
   const attachFileModalCloseAndUpload = async () => {
     let formData = new FormData();
     formData.append('files', fileOfUser[0]);
-    formData.append('files', fileOfUser[1]);
     formData.append('name', "shivam");
-    console.log('formData');
-    console.log(formData);
     await axios({
       method: "post",
       url: url + 'api/upload/multipleFiles',
@@ -46,11 +45,11 @@ const ClassInIt = () => {
       headers: { 'accept': 'application/json', 'Accept-Language': 'en-US,en;q=0.8', 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` }
     }).then(
       (res) => {
-        console.log(res.data.files);
+        console.log("file uploaded id" + res.data._id);
         setuploadedFileID(res.data._id);
       }
     ).catch((err) => {
-      console.log("thisis error :"+err);
+      console.log(err);
     })
     setAttachFileModal(false);
     setTimeout(
@@ -64,12 +63,44 @@ const ClassInIt = () => {
   };
   const [fileUploadText, setFileUploadText] = useState('Drop your files, or click to select files [only one file for now]');
   const acceptedFiles = (acceptedFiles) => {
-    console.log(acceptedFiles);
     setfileOfUser(acceptedFiles);
     setFileUploadText("Uploaded no of files : " + acceptedFiles.length);
   };
 
 // File Uploading Logic End
+  //steam start
+  function SteamArea(prop) {
+    const [filePath,setfilepath] = useState(null);
+    if (prop.steam.files !== null) {
+      axios.get(url + 'api/upload/getMultipleFiles/'+prop.steam.files).then(
+        (res) => {
+          setfilepath(res.data.files[0].filePath);
+        }
+      ).catch(
+        (err) => {
+          console.log(err);
+        }
+      )
+     }
+    return <div>
+      <div className="messageAreaAll mt-5" style={{}}>
+        <div className="container">
+          <h2>{prop.steam.title}</h2>
+          <p>{prop.steam.description}</p>
+          {prop.steam.files !== null ? 
+          <div className="container m-4">
+          <div className="row">
+            <div className="col">
+              <img src={url+filePath} width="250px"></img>
+            </div>
+          </div>
+        </div> : ""}
+          <h6><span style={{backgroundColor:'#333'}} className="badge badge-secondary">Data / Time : {(new Date(prop.steam.timstamp)).toLocaleString()}</span></h6>
+        </div>
+      </div>
+      </div>
+  }
+  //steam end
 // message Area Code start
   function MessageArea() {
     const [title, setTitle] = useState("");
@@ -81,32 +112,50 @@ const ClassInIt = () => {
       setDesc(event.target.value);
     }
     const sendDataToServer = () => {
-      console.log(title + " " + desc + " " + uploadedFileID);
+      console.log("plane clicked");
+      console.log("title " + title);
+      console.log("desc " +  desc );
+      console.log("FileID " +  uploadedFileID);
+      console.log("classID "+ classDetails.classID);
       const dataToPost = {
         title:title,
         description:desc,
-        files:uploadedFileID,
+        type:'any',
+        files: uploadedFileID,
+        classID: classDetails.classID
       } 
-      if ((title !== "" && desc !== "") || uploadedFileID !== null) {
+      axios.defaults.headers.common['Authorization'] = Auth.haveToken() ? localStorage.getItem('usertoken') : Auth.userToken;
+      if (title === "" && desc === "") {
+      } else {
         axios.post(url + 'api/classroom/work', dataToPost).then(
           (res) => {
-            console.log(res);
+            axios.get(url+"api/classroom/"+ classDetails.classID).then(
+              (res) => {
+              }
+            ).catch(
+              (error) => {
+                console.log(error);
+          }
+            )
+            setTitle("");
+      setDesc ("");
+      setuploadedFileID(null);
           }
         ).catch(
           (error) => {
             console.log(error);
-          }
-        )
-      } else {
-      }
-      setTitle("");
+            setTitle("");
       setDesc ("");
       setuploadedFileID(null);
+          }
+        )
+      }
+    
     }
     return <>
       <div className="messageAreaAll" style={{}}>
             <FloatingLabel controlId="floatingInput" label="Title :" className="mb-3" >
-          <Form.Control type="text" placeholder="Title" value={ title} onChange={onChangeTile} autoComplete="off"  className="message" />
+          <Form.Control type="text" placeholder="Title" value={title} onChange={onChangeTile} autoComplete="off"  className="message" />
               </FloatingLabel>
 
               <FloatingLabel controlId="floatingTextarea2" label="Description :" >
@@ -142,14 +191,17 @@ const ClassInIt = () => {
               <div className="row" style={{width:'100%'}}>
               <div className="col">
                 <a href={classDetails.meetLink} className="btn btn-success" style={{ width: '100%', marginBottom: '20px' }}>Join Meet</a>
-
               </div>
               </div>
             </div>
             {/* messaging part goes here */}
           <div className="col-sm-9" >
             <MessageArea />
-            
+            {classData.stream.length > 0 ?
+              classData.stream.reverse().map((streamD,index) => {
+                return <SteamArea key={ index} steam={streamD} />
+              })
+              : "dont not Yet Present"}
             </div>
         </div>
         </div>

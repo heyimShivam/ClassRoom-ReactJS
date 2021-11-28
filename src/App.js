@@ -18,7 +18,6 @@ import ClassInIt from './pages/Classroom/ClassInIT/ClassInIt'
 import PrivateRoute from './Protected.routes'
 import Login from './Components/login/login';
 import Register from './Components/register/register'
-import Auth from './auth';
 const App = () => {
   
   return (
